@@ -22,7 +22,7 @@ public class ProdutoService {
     public Page<ProdutoResponseDTO> findAll(String busca, Pageable pageable) {
         Page<Produto> produtos = busca == null || busca.isBlank()
                 ? produtoRepository.findAll(pageable)
-                : produtoRepository.findByNomeContainingIgnoreCase(busca, pageable);
+                : produtoRepository.findByNomeContainingIgnoreCaseOrDescricaoContainingIgnoreCase(busca, busca, pageable);
 
         return produtos.map(ProdutoResponseDTO::toDto);
     }

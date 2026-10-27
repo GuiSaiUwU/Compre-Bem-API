@@ -23,7 +23,7 @@ public class ProdutoController {
     public Page<ProdutoResponseDTO> findAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
-            @RequestParam(required = false) String busca) {
+            @RequestParam(required = false, defaultValue = "") String busca) {
         return produtoService.findAll(busca, PageRequest.of(page, Math.max(1, Math.min(size, 50))));
     }
 
@@ -42,8 +42,8 @@ public class ProdutoController {
         return produtoService.update(produtoId, produto);
     }
 
-    @DeleteMapping
-    public void delete(UUID produtoId) {
+    @DeleteMapping("/{produtoId}")
+    public void delete(@PathVariable UUID produtoId) {
         produtoService.delete(produtoId);
     }
 }
